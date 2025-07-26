@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kinniku/component/Pagewidget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -63,76 +64,4 @@ class _MyHomePageState extends State<MyHomePage> {
       _currentIndex = index;
     });
   }
-}
-
-class PageWidget extends StatelessWidget {
-  final Color color;
-
-  const PageWidget({super.key, required this.color});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            FloatingActionButton(
-              onPressed: () {
-                _showBottomSheet(context);
-              },
-              child: Text('追加'),
-            ),
-          ],
-        ),
-        _cardWidget(),
-      ],
-    );
-  }
-}
-
-_cardWidget() {
-  return Card(
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        ListTile(
-          leading: Icon(Icons.model_training),
-          title: Text('bench press'),
-          subtitle: Text('アルバムの説明'),
-        ),
-      ],
-    ),
-  );
-}
-
-void _showBottomSheet(BuildContext context) {
-  showModalBottomSheet(
-    context: context,
-    builder: (BuildContext context) {
-      return Container(
-        height: 500, // シートの高さを指定
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text("トレーニングメニューを選択してください"),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context); // シートを閉じる
-                },
-                child: Text('ベンチプレス'),
-              ),
-            ],
-          ),
-        ),
-      );
-    },
-  );
 }
