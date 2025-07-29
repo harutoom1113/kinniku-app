@@ -8,22 +8,33 @@ class PageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            FloatingActionButton(
-              onPressed: () {
-                _showBottomSheet(context);
-              },
-              child: Text('追加'),
-            ),
-          ],
-        ),
-        CardWidget(),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              FloatingActionButton(
+                onPressed: () {
+                  _showBottomSheet(context);
+                },
+                child: Text('追加'),
+              ),
+            ],
+          ),
+          CardWidget(icon: Icons.model_training, title: 'ベンチプレス'),
+          CardWidget(icon: Icons.model_training, title: 'スクワット'),
+          CardWidget(icon: Icons.model_training, title: 'デッドリフト'),
+          CardWidget(icon: Icons.model_training, title: 'ベンチプレス'),
+          CardWidget(icon: Icons.model_training, title: 'スクワット'),
+          CardWidget(icon: Icons.model_training, title: 'デッドリフト'),
+          CardWidget(icon: Icons.model_training, title: 'デッドリフト'),
+          CardWidget(icon: Icons.model_training, title: 'ベンチプレス'),
+          CardWidget(icon: Icons.model_training, title: 'スクワット'),
+          CardWidget(icon: Icons.model_training, title: 'デッドリフト'),
+        ],
+      ),
     );
   }
 }
