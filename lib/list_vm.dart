@@ -7,16 +7,14 @@ class ListsNotifier extends StateNotifier<List<ListData>> {
     : super([
         // 初期値として適当なデータを入れています
         ListData(icon: Icons.model_training, title: 'ベンチプレス', id: '0'),
-        ListData(icon: Icons.model_training, title: 'スクワット', id: '1'),
-        ListData(icon: Icons.model_training, title: 'デッドリフト', id: '2'),
       ]);
 
-  void addTodo(ListData data) {
+  void addList(ListData data) {
     // stateのみ変更の処理をしているが、DBの操作もここで追記必要
     state = [...state, data];
   }
 
-  void removeTodo(String dataId) {
+  void removeList(String dataId) {
     // stateのみ変更の処理をしているが、DBの操作もここで追記必要
     state = [
       for (final data in state)
