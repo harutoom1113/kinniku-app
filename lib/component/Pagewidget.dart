@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kinniku/component/cardwidget.dart';
 import 'package:kinniku/list.dart';
 import 'package:kinniku/list_vm.dart';
 
@@ -27,15 +28,8 @@ class PageWidget extends ConsumerWidget {
             ],
           ),
           for (final list in lists)
-            ListTile(
-              title: Text(list.title),
-              trailing: IconButton(
-                icon: Icon(Icons.delete, color: Colors.red),
-                onPressed: () {
-                  ref.read(listsProvider.notifier).removeTodo(list.id);
-                },
-              ),
-            ),
+            CardWidget(icon: list.icon, title: list.title, id: list.id),
+          //onpressedの関数を消してます
         ],
       ),
     );
@@ -64,7 +58,7 @@ void _showBottomSheet(BuildContext context, WidgetRef ref) {
                 onPressed: () {
                   ref
                       .read(listsProvider.notifier)
-                      .addTodo(
+                      .addList(
                         // 適当なデータを渡しています
                         ListData(
                           id: '${list.length}',
