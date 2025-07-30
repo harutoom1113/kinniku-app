@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:kinniku/component/cardwidget.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kinniku/list.dart';
+import 'package:kinniku/list_vm.dart';
 
-class PageWidget extends StatelessWidget {
+class PageWidget extends ConsumerWidget {
   final Color color;
 
   const PageWidget({super.key, required this.color});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final lists = ref.watch(listsProvider);
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -17,29 +20,31 @@ class PageWidget extends StatelessWidget {
             children: <Widget>[
               FloatingActionButton(
                 onPressed: () {
-                  _showBottomSheet(context);
+                  _showBottomSheet(context, ref);
                 },
                 child: Text('追加'),
               ),
             ],
           ),
-          CardWidget(icon: Icons.model_training, title: 'ベンチプレス'),
-          CardWidget(icon: Icons.model_training, title: 'スクワット'),
-          CardWidget(icon: Icons.model_training, title: 'デッドリフト'),
-          CardWidget(icon: Icons.model_training, title: 'ベンチプレス'),
-          CardWidget(icon: Icons.model_training, title: 'スクワット'),
-          CardWidget(icon: Icons.model_training, title: 'デッドリフト'),
-          CardWidget(icon: Icons.model_training, title: 'デッドリフト'),
-          CardWidget(icon: Icons.model_training, title: 'ベンチプレス'),
-          CardWidget(icon: Icons.model_training, title: 'スクワット'),
-          CardWidget(icon: Icons.model_training, title: 'デッドリフト'),
+          for (final list in lists)
+            ListTile(
+              title: Text(list.title),
+              trailing: IconButton(
+                icon: Icon(Icons.delete, color: Colors.red),
+                onPressed: () {
+                  ref.read(listsProvider.notifier).removeTodo(list.id);
+                },
+              ),
+            ),
         ],
       ),
     );
   }
 }
 
-void _showBottomSheet(BuildContext context) {
+void _showBottomSheet(BuildContext context, WidgetRef ref) {
+  final list = ref.watch(listsProvider);
+
   showModalBottomSheet(
     context: context,
     builder: (BuildContext context) {
@@ -57,7 +62,16 @@ void _showBottomSheet(BuildContext context) {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pop(context); // シートを閉じる
+                  ref
+                      .read(listsProvider.notifier)
+                      .addTodo(
+                        // 適当なデータを渡しています
+                        ListData(
+                          id: '${list.length}',
+                          title: 'ベンチプレス',
+                          icon: Icons.model_training,
+                        ),
+                      );
                 },
                 child: Text('ベンチプレス'),
               ),
