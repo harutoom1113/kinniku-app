@@ -43,11 +43,43 @@ class _CardWidgetState extends State<CardWidget> {
                 Text(widget.title, style: const TextStyle(fontSize: 18)),
                 const SizedBox(width: 16),
                 if (_isExpanded)
-                  const Expanded(
-                    child: Text(
-                      'ベンチプレスの説明がここに入ります。',
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 3,
+                  Expanded(
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 16),
+
+                        // 重量入力欄
+                        SizedBox(
+                          width: 80,
+                          child: TextField(
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(
+                              labelText: '重量',
+                              border: OutlineInputBorder(),
+                            ),
+                            onChanged: (value) {
+                              // 重量の更新処理
+                            },
+                          ),
+                        ),
+
+                        const SizedBox(width: 8),
+
+                        // 回数入力欄
+                        SizedBox(
+                          width: 80,
+                          child: TextField(
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(
+                              labelText: '回数',
+                              border: OutlineInputBorder(),
+                            ),
+                            onChanged: (value) {
+                              // 回数の更新処理
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ),
               ],
